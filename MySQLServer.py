@@ -12,20 +12,20 @@ def create_database():
 
         if connection.is_connected():
             cursor = connection.cursor()
-            # Create database if it doesn't exist
-            cursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
-            print("Database 'alx_book_store' created successfully!")
-
-    except Error as e:
-        print(f"Error: {e}")
-
+            try:
+                # Create database if it doesn't exist
+                cursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
+                print("Database 'alx_book_store' created successfully!")
+            except Error as err:
+                print(f"Failed to create database: {err}")
+            finally:
+                cursor.close()
+    except Error as err:
+        print(f"Error: {err}")
     finally:
-        # Close the cursor and connection
-        if 'cursor' in locals():
-            cursor.close()
         if 'connection' in locals() and connection.is_connected():
             connection.close()
 
-if __name__ == "__main__":
+if __Steven_Banda__ == "__main__":
     create_database()
 
